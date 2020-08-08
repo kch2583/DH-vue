@@ -6,9 +6,10 @@
           :src="require('../../assets/daehyunLogo.png')"
           alt="daehyun Logo"
           contain
-          height="7vh"
-        ></v-img
-      ></router-link>
+          min-width="100px"
+          max-width="17vw"
+        ></v-img>
+      </router-link>
     </v-row>
     <v-row>
       <v-col>
@@ -19,8 +20,7 @@
             :to="menuList.linkTo"
             class="text-sm-h6 text-xl-h4"
             :ripple="false"
-            >{{ menuList.name }}</v-tab
-          >
+          >{{ menuList.name }}</v-tab>
         </v-tabs>
       </v-col>
     </v-row>
@@ -34,10 +34,10 @@ export default {
       menuLists: [
         { name: "Products", linkTo: "/products" },
         { name: "About us", linkTo: "/aboutUs" },
-        { name: "Contact us", linkTo: "/contactUs" },
-      ],
+        { name: "Contact us", linkTo: "/contactUs" }
+      ]
     };
-  },
+  }
 };
 </script>
 
