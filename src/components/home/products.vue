@@ -6,7 +6,7 @@
           <v-card-title class="text-h6">#1001</v-card-title>
           <v-img :src="require('../../assets/leather1.png')"></v-img>
           <v-card-text>
-            <v-chip-group column multiple>
+            <v-chip-group multiple column>
               <v-chip v-for="tag in tags" :key="tag">{{ tag }}</v-chip>
             </v-chip-group>
           </v-card-text>

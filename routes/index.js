@@ -4,6 +4,7 @@ import index from "../src/components/home/index.vue";
 import products from "../src/components/home/products.vue";
 import aboutUs from "../src/components/home/aboutUs.vue";
 import contactUs from "../src/components/home/contactUs.vue";
+import admin from "../src/components/admin/index.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,10 @@ export const router = new VueRouter({
     {
       path: "/contactus",
       component: contactUs,
+    },
+    {
+      path: "/admin",
+      component: admin,
     },
   ],
 });
