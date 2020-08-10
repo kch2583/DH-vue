@@ -10,8 +10,7 @@
               :to="tabList.linkTo"
               class="text-sm-h6 text-xl-h4"
               :ripple="false"
-              >{{ tabList.name }}</v-tab
-            >
+            >{{ tabList.name }}</v-tab>
           </v-tabs>
         </div>
         <div v-else>
@@ -22,8 +21,8 @@
               :to="tabList.linkTo"
               class="text-sm-h6 text-xl-h4"
               :ripple="false"
-              >{{ tabList.name }}</v-tab
-            >
+              exact
+            >{{ tabList.name }}</v-tab>
           </v-tabs>
         </div>
       </v-col>
@@ -36,17 +35,18 @@ export default {
   data() {
     return {
       homeTabLists: [
+        { name: "Home", linkTo: "/" },
         { name: "Products", linkTo: "/products" },
-        { name: "About us", linkTo: "/aboutUs" },
-        { name: "Contact us", linkTo: "/contactUs" },
+        { name: "Contact us", linkTo: "/contactUs" }
       ],
       adminTabLists: [
+        { name: "Admin Home", linkTo: "/admin" },
         { name: "Products", linkTo: "/admin/products" },
         { name: "Users", linkTo: "/admin/users" },
-        { name: "statistics", linkTo: "/admin/statistics" },
-      ],
+        { name: "statistics", linkTo: "/admin/statistics" }
+      ]
     };
-  },
+  }
 };
 </script>
 
