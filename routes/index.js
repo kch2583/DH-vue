@@ -35,13 +35,17 @@ export const router = new VueRouter({
       component: admin,
       children: [
         {
-          path: "/products",
-          name: "products",
+          path: "/",
+
+          components: { a: productsTable, b: usersTable },
+        },
+        {
+          path: "products",
           component: productsTable,
         },
         {
-          path: "/users",
-          name: "users",
+          path: "users",
+
           component: usersTable,
         },
       ],
