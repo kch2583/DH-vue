@@ -5,16 +5,27 @@
         <v-card>
           <v-card-title>Filter</v-card-title>
           <v-card-text>
+            <v-text-field
+              label="Search"
+              placeholder="숫자만 입력하세요 ex) 1080"
+              persistent-hint
+              v-model="searchNumber"
+              outlined
+              append-icon="fas fa-search"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-title>Filter</v-card-title>
+          <v-card-text>
             <v-chip-group multiple>
               <div v-for="type in productType" :key="type.typeNumber">
-                <v-chip filter @click="filter(type)">{{ type.type}}</v-chip>
+                <v-chip @click="filter(type)">{{ type.type}}</v-chip>
               </div>
             </v-chip-group>
           </v-card-text>
         </v-card>
       </v-col>
       <v-col
-        v-for="productList in filteredProductLists"
+        v-for="productList in filteredProductLists "
         :key="productList.id"
         cols="6"
         sm="4"
@@ -24,7 +35,7 @@
           <v-card-title class="text-h6">{{productList.number}}</v-card-title>
           <v-img :src="require('../../assets/' + productList.image)"></v-img>
           <v-card-text>
-            <v-chip-group multiple column>
+            <v-chip-group multiple column draggable>
               <div v-for="type in productType" :key="type.typeNumber">
                 <v-chip v-if="type.typeNumber === productList.type">{{ type.type }}</v-chip>
               </div>
@@ -50,10 +61,12 @@
 <script>
 import products from "../../data/product.json";
 import pType from "../../data/productType.json";
+
 export default {
   data: () => ({
     productType: pType,
     productLists: products,
+    searchNumber: "",
     filteredType: [],
     page: 1,
     length: 10,
@@ -61,30 +74,43 @@ export default {
   }),
 
   computed: {
+    //필터기능
     filteredProductLists: function() {
-      if (!this.filteredType.length) {
+      //검색으로 번호 찾기
+      if (this.searchNumber) {
+        return this.productLists.filter(product => {
+          return product.number.includes(this.searchNumber);
+        });
+      }
+      // type, 검색 아무것도 해당 안될 때 (전체보기)
+      else if (!this.filteredType.length) {
         return this.productLists;
-      } else {
-        for (let i = 0; i < this.filteredType.length; i++) {
-          const type = this.filteredType[i];
-          if (
-            this.productLists.filter(function(e) {
-              console.log(e);
-              console.log(type);
-            })
-          ) {
+      }
+      // type별로 제품 검색하기
+      else {
+        var filteredProduct = [];
+        var filtered = this.filteredType;
+
+        this.productLists.forEach(function(product) {
+          function cardContainsFilter(filter) {
+            return product.type === filter;
           }
-        }
-        return this.productLists;
+          if (filtered.some(cardContainsFilter)) {
+            filteredProduct.push(product);
+          }
+        });
+        return filteredProduct;
       }
     }
   },
+
   methods: {
+    //필터된 타입 저장
     filter(type) {
-      if (this.filteredType.indexOf(type.typeNumber) !== -1) {
-        this.filteredType.splice(this.filteredType.indexOf(type.typeNumber), 1);
-      } else {
+      if (this.filteredType.indexOf(type.typeNumber) == -1) {
         this.filteredType.push(type.typeNumber);
+      } else {
+        this.filteredType.splice(this.filteredType.indexOf(type.typeNumber), 1);
       }
     }
   }

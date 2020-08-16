@@ -3,31 +3,33 @@
     <v-card>
       <v-card-title>Product Table</v-card-title>
 
-      <v-data-table :headers="headers"></v-data-table>
+      <v-data-table :headers="headers" :items="productLists"></v-data-table>
     </v-card>
   </div>
 </template>
 
 <script>
+import products from "../../data/product.json";
 export default {
   data() {
     return {
+      productLists: products,
       headers: [
         { text: "Product Number", align: "center", value: "number" },
         {
-          text: "color",
+          text: "Color",
           value: "color"
         },
         {
-          text: "type",
+          text: "Type",
           value: "type"
         },
         {
-          text: "image",
+          text: "Image",
           value: "image"
         },
         {
-          text: "pattern",
+          text: "Pattern",
           value: "pattern"
         }
       ]
