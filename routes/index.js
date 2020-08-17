@@ -7,6 +7,7 @@ import contactUs from "../src/components/home/contactUs.vue";
 import admin from "../src/components/admin/index.vue";
 import productsTable from "../src/components/admin/productsTable.vue";
 import usersTable from "../src/components/admin/usersTable.vue";
+import adminProducts from "../src/components/admin/adminProduct.vue";
 
 Vue.use(VueRouter);
 
@@ -41,7 +42,7 @@ export const router = new VueRouter({
         },
         {
           path: "products",
-          component: productsTable,
+          component: adminProducts,
         },
         {
           path: "users",

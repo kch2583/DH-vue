@@ -1,68 +1,77 @@
 <template>
-  <div>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title>Filter</v-card-title>
-          <v-card-text>
-            <v-text-field
-              label="Search"
-              placeholder="숫자만 입력하세요 ex) 1080"
-              persistent-hint
-              v-model="searchNumber"
-              outlined
-              append-icon="fas fa-search"
-            ></v-text-field>
-          </v-card-text>
-          <v-card-title>Filter</v-card-title>
-          <v-card-text>
-            <v-chip-group multiple>
-              <div v-for="type in productType" :key="type.typeNumber">
-                <v-chip @click="filter(type)">{{ type.type}}</v-chip>
-              </div>
-            </v-chip-group>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col
-        v-for="productList in filteredProductLists "
-        :key="productList.id"
-        cols="6"
-        sm="4"
-        md="2"
-      >
-        <v-card rounded elevation="6">
-          <v-card-title class="text-h6">{{productList.number}}</v-card-title>
-          <v-img :src="require('../../assets/' + productList.image)"></v-img>
-          <v-card-text>
-            <v-chip-group multiple column draggable>
-              <div v-for="type in productType" :key="type.typeNumber">
-                <v-chip v-if="type.typeNumber === productList.type">{{ type.type }}</v-chip>
-              </div>
-              <v-chip :color="productList.color">{{ productList.color }}</v-chip>
-              <v-chip>{{ productList.pattern }}</v-chip>
-            </v-chip-group>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12">
-        <v-pagination
-          v-model="page"
-          circle
-          :length="length"
-          :page="page"
-          :total-visible="totalVisible"
-        ></v-pagination>
-      </v-col>
-    </v-row>
-  </div>
+  <v-row>
+    <!-- 넘버 찾기 기능, 타입 필터 기능 -->
+    <v-col cols="12">
+      <!-- 넘버 찾기 기능 -->
+      <v-card>
+        <v-card-title>Filter</v-card-title>
+        <v-card-text>
+          <v-text-field
+            label="Search"
+            placeholder="숫자만 입력하세요 ex) 1080"
+            persistent-hint
+            v-model="searchNumber"
+            outlined
+            append-icon="fas fa-search"
+          ></v-text-field>
+        </v-card-text>
+        <!-- 타입 필터 기능 -->
+        <v-card-title>Type Filter</v-card-title>
+        <v-card-text>
+          <v-chip-group multiple>
+            <div v-for="type in productType" :key="type.typeNumber">
+              <v-chip @click="filter(type)">{{ type.type}}</v-chip>
+            </div>
+          </v-chip-group>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <!-- 타입 정보 -->
+    <v-col cols="12">
+      <typeInfo></typeInfo>
+    </v-col>
+    <!-- 제품 표시 -->
+    <v-col
+      v-for="productList in filteredProductLists "
+      :key="productList.id"
+      cols="6"
+      sm="4"
+      md="2"
+    >
+      <v-card rounded elevation="6">
+        <v-card-title class="text-h6">{{productList.number}}</v-card-title>
+        <v-img :src="require('../../assets/' + productList.image)"></v-img>
+        <v-card-text>
+          <v-chip-group multiple column draggable>
+            <div v-for="type in productType" :key="type.typeNumber">
+              <v-chip v-if="type.typeNumber === productList.type">{{ type.type }}</v-chip>
+            </div>
+            <v-chip :color="productList.color">{{ productList.color }}</v-chip>
+            <v-chip>{{ productList.pattern }}</v-chip>
+          </v-chip-group>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col cols="12">
+      <v-pagination
+        v-model="page"
+        circle
+        :length="length"
+        :page="page"
+        :total-visible="totalVisible"
+      ></v-pagination>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import products from "../../data/product.json";
 import pType from "../../data/productType.json";
-
+import typeInfo from "../admin/typeInfo";
 export default {
+  components: {
+    typeInfo
+  },
   data: () => ({
     productType: pType,
     productLists: products,

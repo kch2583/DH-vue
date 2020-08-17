@@ -4,7 +4,7 @@
       <logo minWidth="100px" maxWidth="17vw"></logo>
       <tabs></tabs>
 
-      <router-view class="pa-12"></router-view>
+      <router-view class="pb-12"></router-view>
 
       <v-footer class="mt-7" padless absolute>
         <div>sdkjefoi slkjfeoijef</div>
